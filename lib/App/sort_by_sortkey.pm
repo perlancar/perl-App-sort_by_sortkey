@@ -52,6 +52,10 @@ MARKDOWN
                 'x.doc.show_result' => 0,
             },
         ];
+        $meta->{links} //= [];
+        push @{ $meta->{links} }, {url=>'pm:SortKey'};
+        push @{ $meta->{links} }, {url=>'prog:sort-by-sorter'};
+        push @{ $meta->{links} }, {url=>'prog:sort-by-comparer'};
     },
     output_code => sub {
         require Module::Load::Util;
