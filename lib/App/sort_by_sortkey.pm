@@ -65,9 +65,12 @@ MARKDOWN
         AppBase::Sort::File::set_source_arg(\%oc_args);
         $oc_args{_gen_keygen} = sub {
             my $gc_args = shift;
-            Module::Load::Util::call_module_function_with_optional_args(
-                {ns_prefix=>"SortKey", function=>"gen_keygen"},
-                $gc_args->{sortkey_module});
+            (
+                Module::Load::Util::call_module_function_with_optional_args(
+                    {ns_prefix=>"SortKey", function=>"gen_keygen"},
+                    $gc_args->{sortkey_module}),                 # elem0: keygen
+                ($gc_args->{sortkey_module} =~ /\ANum::/ ? 1:0), # elem1: is_numeric?
+            );
         };
         AppBase::Sort::sort_appbase(%oc_args);
     },
